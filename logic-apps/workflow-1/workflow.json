@@ -9,7 +9,7 @@
                 "inputs": {
                     "statusCode": 200,
                     "body": {
-                        "message": "Hello From workflow-1"
+                        "message": "Hello From workflow-2"
                     }
                 },
                 "runAfter": {}

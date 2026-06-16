@@ -1,0 +1,6 @@
+{
+  "WelcomeMessage": {
+    "type": "String",
+    "value": "Hello from Parameters File"
+  }
+}
