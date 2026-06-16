@@ -1,0 +1,51 @@
+name: Deploy Logic App Standard
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  RESOURCE_GROUP: logic-app-cicd-rg
+  LOGIC_APP_NAME: hello-world-logic-app
+  LOGIC_APP_PATH: ./logic-apps
+
+jobs:
+  deploy:
+    name: Deploy Logic App
+    runs-on: ubuntu-latest
+
+    environment: Dev
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Azure Login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Create Deployment Package
+        run: |
+          cd $LOGIC_APP_PATH
+          zip -r ../logicapp.zip .
+
+      - name: Deploy Logic App Package
+        run: |
+          az webapp deployment source config-zip \
+            --resource-group $RESOURCE_GROUP \
+            --name $LOGIC_APP_NAME \
+            --src logicapp.zip
+
+      - name: Verify Azure Access
+        run: |
+          az logicapp show \
+            --name $LOGIC_APP_NAME \
+            --resource-group $RESOURCE_GROUP \
+            --output table
