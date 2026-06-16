@@ -9,6 +9,8 @@ permissions:
 
 jobs:
   test-login:
+    environment: Dev
+    
     runs-on: ubuntu-latest
 
     steps:
