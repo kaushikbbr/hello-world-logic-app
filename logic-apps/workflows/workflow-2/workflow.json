@@ -1,28 +1,27 @@
 {
-  "definition": {
-    "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2019-05-01/workflowdefinition.json#",
-    "contentVersion": "1.0.0.0",
-    "triggers": {
-      "manual": {
-        "type": "Request",
-        "kind": "Http"
-      }
-    },
-    "actions": {
-      "Response": {
-        "type": "Response",
-        "kind": "Http",
-        "inputs": {
-          "statusCode": 200,
-          "body": {
-            "workflow": "workflow-2",
-            "message": "Hello from workflow 2"
-          }
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "contentVersion": "1.0.0.0",
+        "actions": {
+            "Response": {
+                "type": "Response",
+                "kind": "Http",
+                "inputs": {
+                    "statusCode": 200,
+                    "body": {
+                        "message": "Hello From workflow-2"
+                    }
+                },
+                "runAfter": {}
+            }
         },
-        "runAfter": {}
-      }
+        "outputs": {},
+        "triggers": {
+            "When_an_HTTP_request_is_received": {
+                "type": "Request",
+                "kind": "Http"
+            }
+        }
     },
-    "outputs": {}
-  },
-  "kind": "Stateful"
+    "kind": "Stateful"
 }
