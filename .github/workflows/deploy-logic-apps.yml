@@ -36,6 +36,10 @@ jobs:
           cd $LOGIC_APP_PATH
           zip -r ../logicapp.zip .
 
+      - name: Inspect Zip Contents
+        run: |
+          unzip -l logicapp.zip
+
       - name: Deploy Logic App Package
         run: |
           az webapp deployment source config-zip \
